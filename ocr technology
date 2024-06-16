@@ -1,0 +1,61 @@
+To apply OCR (Optical Character Recognition) technology on the screenshot captured from the mobile application to extract product names and prices, Python along with the pytesseract library, which is a wrapper for Google's Tesseract-OCR Engine:
+ 
+
+bash
+
+pip install opencv-python-headless pytesseract
+Steps to Extract Text from Screenshot using OCR
+1. Capture Screenshot (as demonstrated earlier):
+captured the screenshot using Appium,  should have a file named product_list_screenshot.png.
+
+2. Apply OCR to Extract Text:
+Use Python and pytesseract to process the screenshot and extract text.
+
+python
+
+import cv2
+import pytesseract
+
+# Path to Tesseract executable (if not in your PATH environment variable)
+pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+
+# Path to your captured screenshot
+screenshot_path = 'product_list_screenshot.png'
+
+# Load the screenshot using OpenCV
+img = cv2.imread(screenshot_path)
+
+# Convert the image to grayscale
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+# Apply thresholding to preprocess the image
+_, thresh = cv2.threshold(gray, 150, 255, cv2.THRESH_BINARY)
+
+# Use pytesseract to extract text from image
+text = pytesseract.image_to_string(thresh)
+
+# Print extracted text
+print("Extracted Text:")
+print(text)
+Explanation:
+pytesseract Configuration: Set the path to the Tesseract executable using pytesseract.pytesseract.tesseract_cmd.
+Loading the Screenshot: Use OpenCV (cv2.imread) to load the captured screenshot.
+Preprocessing: Convert the image to grayscale (cv2.cvtColor) and apply thresholding (cv2.threshold) to improve OCR accuracy.
+Text Extraction: Use pytesseract.image_to_string to extract text from the preprocessed image.
+Running the Script:
+Ensure Tesseract OCR is installed and its path is correctly set in the script.
+Place product_list_screenshot.png in the same directory as the script.
+Run the script:
+bash
+
+python extract_text_from_screenshot.py
+Further Enhancements:
+Image Preprocessing: Experiment with different image preprocessing techniques (e.g., resizing, noise removal, contrast adjustment) to improve OCR accuracy.
+Text Parsing: Once text is extracted, implement parsing logic to specifically extract product names and prices based on their expected format.-
+
+it can effectively apply OCR technology to extract product names and prices from the screenshot captured from the mobile application. Adjust the preprocessing steps and OCR parameters as needed to optimize text extraction based on your specific application's screenshots.
+
+
+
+
+
