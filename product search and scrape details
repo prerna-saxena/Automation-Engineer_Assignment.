@@ -1,0 +1,116 @@
+Test Case 1: Open E-commerce Website
+Title: Verify that the e-commerce website loads successfully.
+Description: Ensure that the homepage of the e-commerce website loads correctly.
+Preconditions: None
+Test Steps:
+Open the web browser.
+Navigate to the e-commerce website's URL.
+Expected Result: The home page of the e-commerce site loads successfully with all the main elements (logo, search bar, navigation menu, etc.) displayed.
+Automation Script:
+
+@Test
+public void verifyHomePageLoad() {
+    driver.get("https://www.ecommerce-site.com");
+    Assert.assertTrue(driver.findElement(By.id("logo")).isDisplayed());
+    Assert.assertTrue(driver.findElement(By.id("search-bar")).isDisplayed());
+}
+Test Case 2: Search for "Hindi Books"
+Title: Verify search functionality for "Hindi Books".
+Description: Ensure that searching for "Hindi Books" returns relevant results.
+Preconditions: The home page should be loaded.
+Test Steps:
+Locate the search bar.
+Enter "Hindi Books" into the search bar.
+Click the search button or press Enter.
+Expected Result: The search results page loads, displaying a list of books related to "Hindi Books".
+Automation Script:
+
+@Test
+public void verifySearchForHindiBooks() {
+    driver.findElement(By.id("search-bar")).sendKeys("Hindi Books");
+    driver.findElement(By.id("search-button")).click();
+    Assert.assertTrue(driver.findElement(By.id("search-results")).isDisplayed());
+}
+Test Case 3: Scrape Book Details
+Title: Scrape details of books from search results.
+Description: Ensure that the script can scrape the name, price, and user rating of books from the search results.
+Preconditions: The search results page for "Hindi Books" should be loaded.
+Test Steps:
+Identify the elements that contain the book details (name, price, and user rating).
+Extract the details for each book in the search results.
+Expected Result: The script successfully scrapes the name, price, and user rating for each book in the search results.
+Automation Script:
+
+@Test
+public void scrapeBookDetails() {
+    List<WebElement> books = driver.findElements(By.cssSelector(".s-main-slot .s-result-item"));
+    for (WebElement book : books) {
+        String name = book.findElement(By.cssSelector("h2 a span")).getText();
+        String price;
+        try {
+            price = book.findElement(By.cssSelector(".a-price-whole")).getText();
+        } catch (NoSuchElementException e) {
+            price = "Price not available";
+        }
+        String rating;
+        try {
+            rating = book.findElement(By.cssSelector(".a-icon-alt")).getText();
+        } catch (NoSuchElementException e) {
+            rating = "Rating not available";
+        }
+        System.out.println("Name: " + name + "\nPrice: " + price + "\nRating: " + rating + "\n");
+    }
+}
+Test Case 4: Verify the Integrity of Scraped Data
+Title: Verify the integrity of the scraped data.
+Description: Ensure that the scraped data contains valid and non-empty values for book name, price, and user rating.
+Preconditions: The search results page for "Hindi Books" should be loaded, and the script should have scraped the book details.
+Test Steps:
+Scrape the book details.
+Verify that each book's name, price, and rating are non-empty and correctly formatted.
+Expected Result: Each scraped book has a non-empty name, and if available, the price and rating should be in the correct format.
+Automation Script:
+
+@Test
+public void verifyScrapedDataIntegrity() {
+    List<WebElement> books = driver.findElements(By.cssSelector(".s-main-slot .s-result-item"));
+    for (WebElement book : books) {
+        String name = book.findElement(By.cssSelector("h2 a span")).getText();
+        Assert.assertFalse(name.isEmpty(), "Book name should not be empty");
+
+        String price;
+        try {
+            price = book.findElement(By.cssSelector(".a-price-whole")).getText();
+            Assert.assertTrue(price.matches("\\d+"), "Price should be a valid number");
+        } catch (NoSuchElementException e) {
+            price = "Price not available";
+        }
+
+        String rating;
+        try {
+            rating = book.findElement(By.cssSelector(".a-icon-alt")).getText();
+            Assert.assertTrue(rating.matches("\\d+(\\.\\d+)? out of 5 stars"), "Rating should be in the correct format");
+        } catch (NoSuchElementException e) {
+            rating = "Rating not available";
+        }
+    }
+}
+Test Case 5: Handle No Search Results
+Title: Verify behavior when no search results are found.
+Description: Ensure that the application handles the scenario where no search results are found for "Hindi Books".
+Preconditions: The search functionality should be operational.
+Test Steps:
+Perform a search for a non-existent item or an unlikely search term.
+Verify the message or behavior when no results are found.
+Expected Result: An appropriate message is displayed indicating that no results were found.
+Automation Script:
+
+
+@Test
+public void verifyNoSearchResults() {
+    driver.findElement(By.id("search-bar")).sendKeys("NonExistentBookName");
+    driver.findElement(By.id("search-button")).click();
+    String noResultsMessage = driver.findElement(By.cssSelector(".no-results-message")).getText();
+    Assert.assertEquals(noResultsMessage, "No results found for NonExistentBookName");
+}
+These test cases provide a comprehensive framework for automating the process of searching for "Hindi Books" and scraping their details. 
