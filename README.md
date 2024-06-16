@@ -5,7 +5,8 @@ Develop a robust automation system that manages web interactions,
 mobile operations, and data comparison through OCR technology. This project
 encompasses scripting in Python or Java to automate tasks, extract and analyze data,
 and generate a comprehensive report.
-Detailed Task Breakdown:
+Detailed Task Breakdown:.
+
 • Web Automation Using Selenium:
 • Deploy Selenium to access an e-commerce site.
 • Execute a product search for &quot;Hindi Books&quot; and scrape details such as
