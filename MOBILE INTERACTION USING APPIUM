@@ -1,0 +1,91 @@
+Test cases to automate the engagement with a mobile application displaying a product list with prices using Appium. These test cases include scenarios such as launching the application, verifying the product list, and checking product details.
+
+Test Case 1: Launch Mobile Application
+Title: Verify that the mobile application launches successfully.
+Description: Ensure that the mobile application can be launched without any issues.
+Preconditions: The Appium server should be running, and the device/emulator should be connected.
+Test Steps:
+Initialize the Appium driver with the desired capabilities.
+Launch the application.
+Expected Result: The application should launch successfully, and the main activity should be displayed.
+Automation Script:
+
+import unittest
+from appium import webdriver
+
+class TestAppLaunch(unittest.TestCase):
+    def setUp(self):
+        self.desired_caps = {
+            "platformName": "Android",
+            "deviceName": "emulator-5554",
+            "appPackage": "com.example.yourapp",
+            "appActivity": "com.example.yourapp.MainActivity",
+            "automationName": "UiAutomator2"
+        }
+        self.driver = webdriver.Remote("http://localhost:4723/wd/hub", self.desired_caps)
+
+    def test_app_launch(self):
+        self.assertIsNotNone(self.driver.current_activity)
+
+    def tearDown(self):
+        self.driver.quit()
+
+if __name__ == "__main__":
+    unittest.main()
+Test Case 2: Verify Product List Display
+Title: Verify that the product list is displayed.
+Description: Ensure that the product list is visible on the screen after launching the application.
+Preconditions: The application should be launched successfully.
+Test Steps:
+Launch the application.
+Check if the product list is displayed.
+Expected Result: The product list should be visible.
+Automation Script:
+
+import unittest
+from appium import webdriver
+
+class TestProductListDisplay(unittest.TestCase):
+    def setUp(self):
+        self.desired_caps = {
+            "platformName": "Android",
+            "deviceName": "emulator-5554",
+            "appPackage": "com.example.yourapp",
+            "appActivity": "com.example.yourapp.MainActivity",
+            "automationName": "UiAutomator2"
+        }
+        self.driver = webdriver.Remote("http://localhost:4723/wd/hub", self.desired_caps)
+
+    def test_product_list_display(self):
+        product_list = self.driver.find_elements_by_xpath("//android.widget.ListView/android.view.ViewGroup")
+        self.assertGreater(len(product_list), 0, "Product list is not displayed")
+
+    def tearDown(self):
+        self.driver.quit()
+
+if __name__ == "__main__":
+    unittest.main()
+Test Case 3: Verify Product Details
+Title: Verify that product details (name and price) are displayed correctly.
+Description: Ensure that each product in the list displays the correct name and price.
+Preconditions: The product list should be visible.
+Test Steps:
+Launch the application.
+Locate the product list.
+Verify that each product has a name and a price displayed.
+Expected Result: Each product in the list should have a non-empty name and price.
+Automation Script:
+
+import unittest
+from appium import webdriver
+
+class TestProductDetails(unittest.TestCase):
+    def setUp(self):
+        self.desired_caps = {
+            "platformName": "Android",
+            "deviceName": "emulator-5554",
+            "appPackage": "com.example.yourapp",
+            "appActivity": "com.example.yourapp.MainActivity",
+            "automationName": "UiAutomator2"
+        }
+        self.driver = webdriver
