@@ -1,0 +1,211 @@
+As an automation engineer, Test cases that can be automated using testing frameworks such as Selenium, TestNG, JUnit, or any other automation tool. Below are the test cases with a focus on automation, written in a structured format suitable for automation scripts.
+
+Test Case 1: Verify Home Page Load
+
+Title: Verify Home Page Load
+Description: Ensure the home page loads correctly.
+Preconditions: None
+
+Test Steps:
+Open the web browser.
+Navigate to the e-commerce site's URL.
+Expected Result: The home page loads with all elements (logo, search bar, navigation menu, featured products) displayed correctly.
+
+@Test
+public void verifyHomePageLoad() {
+    driver.get("http://www.ecommerce-site.com");
+    Assert.assertTrue(driver.findElement(By.id("logo")).isDisplayed());
+    Assert.assertTrue(driver.findElement(By.id("search-bar")).isDisplayed());
+}
+
+Test Case 2: User Registration
+
+Title: Verify User Registration
+Description: Ensure a new user can register.
+Preconditions: None
+Test Steps:
+Navigate to the registration page.
+Fill in the registration form with valid details.
+Submit the form.
+Expected Result: User is registered and redirected to the login page or logged in automatically.
+Automation Script:
+
+@Test
+public void verifyUserRegistration() {
+    driver.get("http://www.ecommerce-site.com/register");
+    driver.findElement(By.id("name")).sendKeys("Test User");
+    driver.findElement(By.id("email")).sendKeys("testuser@example.com");
+    driver.findElement(By.id("password")).sendKeys("password123");
+    driver.findElement(By.id("confirm-password")).sendKeys("password123");
+    driver.findElement(By.id("register-button")).click();
+    Assert.assertTrue(driver.findElement(By.id("welcome-message")).isDisplayed());
+}
+
+Test Case 3: User Login
+Title: Verify User Login
+Description: Ensure a registered user can log in.
+Preconditions: User must be registered.
+Test Steps:
+Navigate to the login page.
+Enter valid credentials.
+Click on the "Login" button.
+Expected Result: User is logged in and redirected to the dashboard.
+
+@Test
+public void verifyUserLogin() {
+    driver.get("http://www.ecommerce-site.com/login");
+    driver.findElement(By.id("email")).sendKeys("testuser@example.com");
+    driver.findElement(By.id("password")).sendKeys("password123");
+    driver.findElement(By.id("login-button")).click();
+    Assert.assertTrue(driver.findElement(By.id("dashboard")).isDisplayed());
+}
+
+Test Case 4: Search for a Product
+Title: Verify Product Search Functionality
+Description: Ensure the search functionality works.
+Preconditions: None
+Test Steps:
+Navigate to the home page.
+Enter a product name in the search bar.
+Click on the "Search" button.
+Expected Result: Relevant search results are displayed.
+
+@Test
+public void verifyProductSearch() {
+    driver.get("http://www.ecommerce-site.com");
+    driver.findElement(By.id("search-bar")).sendKeys("Laptop");
+    driver.findElement(By.id("search-button")).click();
+    Assert.assertTrue(driver.findElement(By.id("search-results")).isDisplayed());
+}
+
+Test Case 5: Add Product to Cart
+Title: Verify Adding Product to Cart
+Description: Ensure a product can be added to the cart.
+Preconditions: User must be logged in.
+Test Steps:
+Search for a product and open the product detail page.
+Select product options if applicable.
+Click on the "Add to Cart" button.
+Expected Result: Product is added to the cart, and the cart icon is updated.
+Automation Script
+
+@Test
+public void verifyAddProductToCart() {
+    driver.get("http://www.ecommerce-site.com");
+    driver.findElement(By.id("search-bar")).sendKeys("Laptop");
+    driver.findElement(By.id("search-button")).click();
+    driver.findElement(By.linkText("Laptop Model")).click();
+    driver.findElement(By.id("add-to-cart")).click();
+    Assert.assertTrue(driver.findElement(By.id("cart-count")).getText().equals("1"));
+}
+
+Test Case 6: Remove Product from Cart
+Title: Verify Removing Product from Cart
+Description: Ensure a product can be removed from the cart.
+Preconditions: Product must be added to the cart.
+Test Steps:
+Navigate to the cart page.
+Click on the "Remove" button next to the product.
+Expected Result: Product is removed from the cart, and the cart is updated.
+
+Automation Script:
+
+
+@Test
+public void verifyRemoveProductFromCart() {
+    driver.get("http://www.ecommerce-site.com/cart");
+    driver.findElement(By.id("remove-button")).click();
+    Assert.assertTrue(driver.findElement(By.id("cart-empty-message")).isDisplayed());
+}
+
+  Test Case 7: Checkout Process
+Title: Verify Checkout Process
+Description: Ensure the checkout process works smoothly.
+Preconditions: Product must be in the cart.
+Test Steps:
+Navigate to the cart page.
+Click on the "Proceed to Checkout" button.
+Enter shipping details.
+Select a payment method.
+Enter payment details.
+Click on the "Place Order" button.
+Expected Result: Order is placed successfully, and a confirmation message is displayed.
+
+
+Automation Script
+
+@Test
+public void verifyCheckoutProcess() {
+    driver.get("http://www.ecommerce-site.com/cart");
+    driver.findElement(By.id("checkout-button")).click();
+    driver.findElement(By.id("shipping-address")).sendKeys("123 Main St");
+    driver.findElement(By.id("payment-method")).selectByVisibleText("Credit Card");
+    driver.findElement(By.id("credit-card-number")).sendKeys("4111111111111111");
+    driver.findElement(By.id("place-order")).click();
+    Assert.assertTrue(driver.findElement(By.id("order-confirmation")).isDisplayed());
+}
+Test Case 8: View Order History
+Title: Verify Viewing Order History
+Description: Ensure users can view their order history.
+Preconditions: User must be logged in and have placed orders.
+Test Steps:
+Navigate to the user account dashboard.
+Click on the "Order History" link.
+Expected Result: A list of previously placed orders is displayed.
+Automation Script:
+java
+
+@Test
+public void verifyViewOrderHistory() {
+    driver.get("http://www.ecommerce-site.com/login");
+    driver.findElement(By.id("email")).sendKeys("testuser@example.com");
+    driver.findElement(By.id("password")).sendKeys("password123");
+    driver.findElement(By.id("login-button")).click();
+    driver.findElement(By.id("order-history")).click();
+    Assert.assertTrue(driver.findElement(By.id("order-list")).isDisplayed());
+}
+Test Case 9: Apply Discount Coupon
+Title: Verify Applying Discount Coupon
+Description: Ensure a discount coupon can be applied.
+Preconditions: Product must be in the cart and a valid coupon code should be available.
+Test Steps:
+Navigate to the cart page.
+Enter the discount coupon code.
+Click on the "Apply" button.
+Expected Result: The discount is applied to the total amount.
+Automation Script:
+java
+
+@Test
+public void verifyApplyDiscountCoupon() {
+    driver.get("http://www.ecommerce-site.com/cart");
+    driver.findElement(By.id("coupon-code")).sendKeys("DISCOUNT10");
+    driver.findElement(By.id("apply-coupon")).click();
+    Assert.assertTrue(driver.findElement(By.id("discount-applied-message")).isDisplayed());
+}
+Test Case 10: Log Out
+Title: Verify User Logout
+Description: Ensure the user can log out.
+Preconditions: User must be logged in.
+Test Steps:
+Navigate to any page while logged in.
+Click on the "Logout" button.
+Expected Result: The user is logged out and redirected to the home or login page.
+Automation Script:
+java
+
+@Test
+public void verifyUserLogout() {
+    driver.get("http://www.ecommerce-site.com/login");
+    driver.findElement(By.id("email")).sendKeys("testuser@example.com");
+    driver.findElement(By.id("password")).sendKeys("password
+
+
+
+
+
+
+
+
+
+
