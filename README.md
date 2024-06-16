@@ -1,13 +1,13 @@
 # Automation-Engineer_Assignment.
-Automation Engineer_Assignment.
 
-Develop a robust automation system that manages web interactions,
+
+**Develop a robust automation system that manages web interactions,
 mobile operations, and data comparison through OCR technology. This project
 encompasses scripting in Python or Java to automate tasks, extract and analyze data,
 and generate a comprehensive report.
-Detailed Task Breakdown:.
+Detailed Task Breakdown:.**
 
-• Web Automation Using Selenium:
+**•** Web Automation Using Selenium:
 
 • Deploy Selenium to access an e-commerce site.
 
@@ -36,7 +36,7 @@ any price discrepancies.
 • Analyze the data to determine matching and mismatching prices between
 the two methods.
 
-• Generate a detailed report summarizing:
+• Generate a detailed report summarizing:****
 
 • Products with matching prices.
 
